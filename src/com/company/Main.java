@@ -49,9 +49,6 @@ public class Main {
     }
 
     public static void menu() {
-        // show options for how the user can access the various options.
-        // quit, print list of contacts, add new contact, update existing contact, remove contact, search/find contact.
-        // when adding/updating must check to see if contact already exists using name
         System.out.println("\n Options:");
         System.out.println("\t 0 - shows options");
         System.out.println("\t 1 - prints the list of contacts");
@@ -71,10 +68,14 @@ public class Main {
     public static void addNewContact () {
         System.out.println("Input the contact name: ");
         String name = scanner.nextLine();
-        System.out.println("Now input the contact number: ");
-        String number = scanner.nextLine();
-        mobilePhone.addNewContact(name, number);
-        System.out.println("\n" + name + " has been added to your contact list.");
+        if (!mobilePhone.onFile(name)) {
+            System.out.println("Now input the contact number: ");
+            String number = scanner.nextLine();
+            mobilePhone.addNewContact(name, number);
+            System.out.println("\n" + name + " has been added to your contact list.");
+        } else {
+            System.out.println("Contact by that name already exists.");
+        }
     }
 
     public static void updateContact() {
